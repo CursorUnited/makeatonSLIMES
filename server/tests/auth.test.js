@@ -59,6 +59,13 @@ describe('sign-up and password rule', () => {
     expect(res.body.error.fields.email).toBeTruthy();
   });
 
+  it('parallel sign-ups with one email: one wins, the rest get AUTH_EMAIL_TAKEN', async () => {
+    const body = { name: 'Race Shop', email: 'race@shop.in', password: 'Brightloop#1' };
+    const results = await Promise.all([1, 2, 3].map(() => signup(body)));
+    const codes = results.map((r) => r.body.error?.code ?? r.status).sort();
+    expect(codes).toEqual([201, 'AUTH_EMAIL_TAKEN', 'AUTH_EMAIL_TAKEN']);
+  });
+
   it('links sign-up to a customer record staff created earlier', async () => {
     const existing = await prisma.customer.create({ data: { name: 'Northwind', email: 'billing@northwind.in' } });
     const res = await signup({ name: 'Northwind', email: 'billing@northwind.in', password: 'Brightloop#1' });
