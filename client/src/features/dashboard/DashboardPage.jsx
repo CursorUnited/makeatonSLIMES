@@ -100,7 +100,7 @@ export function DashboardPage() {
   });
   const overdueQ = useQuery({
     queryKey: ['reports-overdue', filters],
-    queryFn: () => api.get('/reports/overdue-invoices', { params: { pageSize: 10, ...(planId && { planId }), ...(customerId && { customerId }) } }).then((r) => r.data.data),
+    queryFn: () => api.get('/reports/overdue-invoices', { params: { pageSize: 10, ...(planId && { planId }), ...(customerId && { customerId }) } }).then((r) => r.data),
   });
 
   const s = summaryQ.data;
