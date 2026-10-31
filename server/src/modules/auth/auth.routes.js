@@ -11,13 +11,13 @@ const limiter = rateLimit({ max: 10, windowMs: 60_000, key: byEmail });
 authRouter.post('/signup', validate({ body: signupSchema }, { onError: weakPasswordAware }), async (req, res) => {
   const user = await auth.signup(req.valid.body);
   res.cookie(AUTH_COOKIE, auth.issueToken(user), auth.cookieOptions());
-  res.status(201).json({ data: auth.toAuthUser(user) });
+  res.status(201).json({ data: await auth.me(user.id) });
 });
 
 authRouter.post('/login', limiter, validate({ body: loginSchema }), async (req, res) => {
   const user = await auth.login(req.valid.body);
   res.cookie(AUTH_COOKIE, auth.issueToken(user), auth.cookieOptions());
-  res.json({ data: auth.toAuthUser(user) });
+  res.json({ data: await auth.me(user.id) }); // same shape as /me, so the portal has `customer` straight away
 });
 
 authRouter.post('/logout', (req, res) => {

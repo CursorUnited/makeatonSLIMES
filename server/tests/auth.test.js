@@ -21,12 +21,21 @@ async function latestResetToken(email) {
   return mail?.bodyHtml.match(/token=([0-9a-f]{64})/)?.[1];
 }
 
+it('J-04 login returns the same user shape as /auth/me (portal reads `customer` right after login)', async () => {
+  const login = await request(app).post(`${api}/auth/login`).send({ email: 'customer@brightloop.test', password: 'Customer@1234' });
+  expect(login.status).toBe(200);
+  const me = await request(app).get(`${api}/auth/me`).set('Cookie', login.headers['set-cookie']);
+  expect(login.body.data).toEqual(me.body.data);
+  expect(login.body.data.customer).toMatchObject({ name: 'Kanpur Mart' });
+});
+
 describe('sign-up and password rule', () => {
   it('TC-AUTH-01 sign-up creates a CUSTOMER user + customer record and sets the cookie', async () => {
     const res = await signup({ name: 'Asha Traders', email: ' Owner@AshaTraders.in ', password: 'Brightloop#1', company: 'Asha Traders' });
     expect(res.status).toBe(201);
     expect(res.body.data).toMatchObject({ email: 'owner@ashatraders.in', role: 'CUSTOMER', name: 'Asha Traders' });
     expect(res.body.data.customerId).toBeTypeOf('number');
+    expect(res.body.data.customer).toMatchObject({ id: res.body.data.customerId, name: 'Asha Traders', company: 'Asha Traders' });
     expect(res.headers['set-cookie'].join(';')).toMatch(/sl_token=.*HttpOnly/i);
 
     const customer = await prisma.customer.findUnique({ where: { id: res.body.data.customerId } });
