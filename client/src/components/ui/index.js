@@ -16,3 +16,6 @@ export { ToastProvider, useToast } from './Toast';
 export { EmptyState } from './EmptyState';
 export { ErrorBanner, OfflineBanner } from './ErrorBanner';
 export { Skeleton, SkeletonRows } from './Skeleton';
+export { Tag } from './Tag';
+export { PillFilter } from './PillFilter';
+export { OnboardingTour } from './OnboardingTour';

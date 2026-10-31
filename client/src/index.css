@@ -3,5 +3,14 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-50 text-gray-900 antialiased;
+  @apply bg-gray-50 text-gray-900 antialiased dark:bg-darkbg dark:text-gray-100;
+  transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+
+::selection {
+  @apply bg-primary-700/20 text-primary-800 dark:bg-primary-700/40 dark:text-primary-300;
+}
+
+:focus-visible {
+  @apply outline-none ring-2 ring-primary-700 ring-offset-2 dark:ring-offset-darkbg;
 }

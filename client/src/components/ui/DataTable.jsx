@@ -87,7 +87,7 @@ export function DataTable({
             onChange={(e) => setSearchDraft(e.target.value)}
             placeholder={searchPlaceholder}
             aria-label="Search"
-            className="h-10 w-full rounded-md border border-gray-300 bg-white pl-9 pr-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:ring-offset-1"
+            className="h-10 w-full rounded-md border border-gray-300 bg-white pl-9 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:ring-offset-1 dark:border-darkborder dark:bg-darksurface dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus-visible:ring-offset-darkbg"
           />
         </div>
         {filters?.map((f) => (
@@ -102,31 +102,34 @@ export function DataTable({
           />
         ))}
         {hasFilters && (
-          <button onClick={clearAll} className="text-sm text-primary-700 hover:underline">
+          <button onClick={clearAll} className="text-sm text-primary-700 hover:underline dark:text-primary-300">
             Clear all
           </button>
         )}
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm dark:border-darkborder dark:bg-darksurface">
         {error ? (
           <div className="p-4">
             <ErrorBanner message={error} onRetry={onRetry} />
           </div>
         ) : (
-          <div className="overflow-x-auto">
+          <div className="max-h-[70vh] overflow-auto">
             <table className="w-full border-collapse text-sm">
-              <thead>
-                <tr className="border-b border-gray-200 bg-gray-50">
+              <thead className="sticky top-0 z-10">
+                <tr className="border-b border-gray-200 bg-gray-50 dark:border-darkborder dark:bg-darkbg">
                   {columns.map((c) => (
                     <th
                       key={c.key}
                       scope="col"
                       aria-sort={!c.sortKey ? undefined : sort === c.sortKey ? 'ascending' : sort === `-${c.sortKey}` ? 'descending' : 'none'}
-                      className={clsx('px-4 py-3 text-xs font-medium uppercase tracking-wide text-gray-600', c.align === 'right' && 'text-right')}
+                      className={clsx(
+                        'px-4 py-3 text-xs font-medium uppercase tracking-wide text-gray-600 dark:text-gray-500',
+                        c.align === 'right' && 'text-right',
+                      )}
                     >
                       {c.sortKey ? (
-                        <button onClick={() => toggleSort(c.sortKey)} className="inline-flex items-center gap-1 hover:text-gray-900">
+                        <button onClick={() => toggleSort(c.sortKey)} className="inline-flex items-center gap-1 hover:text-gray-900 dark:hover:text-gray-200">
                           {c.header}
                           {sort === c.sortKey ? <ChevronUp className="h-3 w-3" /> : sort === `-${c.sortKey}` ? <ChevronDown className="h-3 w-3" /> : null}
                         </button>
@@ -137,7 +140,7 @@ export function DataTable({
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-gray-100 dark:divide-darkborder">
                 {isLoading ? (
                   <SkeletonRows rows={8} cols={columns.length} />
                 ) : (
@@ -145,10 +148,10 @@ export function DataTable({
                     <tr
                       key={row.id}
                       onClick={onRowClick ? () => onRowClick(row) : undefined}
-                      className={clsx('h-11', onRowClick && 'cursor-pointer hover:bg-gray-50')}
+                      className={clsx('h-11', onRowClick && 'cursor-pointer hover:bg-gray-50 dark:hover:bg-darkbg')}
                     >
                       {columns.map((c) => (
-                        <td key={c.key} className={clsx('px-4 py-2 text-gray-900', c.align === 'right' && 'text-right tabular-nums')}>
+                        <td key={c.key} className={clsx('px-4 py-2 text-gray-900 dark:text-gray-100', c.align === 'right' && 'text-right tabular-nums')}>
                           {c.render ? c.render(row) : row[c.key]}
                         </td>
                       ))}
@@ -163,7 +166,7 @@ export function DataTable({
       </div>
 
       {!error && total > 0 && (
-        <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-gray-600">
+        <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-gray-600 dark:text-gray-400">
           <span>
             {from}–{to} of {total.toLocaleString('en-IN')}
           </span>
@@ -183,7 +186,7 @@ export function DataTable({
                 onClick={() => goToPage(page - 1)}
                 disabled={page <= 1}
                 aria-label="Previous page"
-                className="rounded p-1.5 hover:bg-gray-100 disabled:opacity-40"
+                className="rounded p-1.5 hover:bg-gray-100 disabled:opacity-40 dark:hover:bg-darkborder"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
@@ -192,7 +195,7 @@ export function DataTable({
                 onClick={() => goToPage(page + 1)}
                 disabled={to >= total}
                 aria-label="Next page"
-                className="rounded p-1.5 hover:bg-gray-100 disabled:opacity-40"
+                className="rounded p-1.5 hover:bg-gray-100 disabled:opacity-40 dark:hover:bg-darkborder"
               >
                 <ChevronRight className="h-4 w-4" />
               </button>

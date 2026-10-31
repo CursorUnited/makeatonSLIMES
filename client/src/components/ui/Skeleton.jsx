@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 export function Skeleton({ className }) {
-  return <div className={clsx('animate-pulse rounded bg-gray-200', className)} aria-hidden="true" />;
+  return <div className={clsx('animate-pulse rounded bg-gray-200 dark:bg-darkborder', className)} aria-hidden="true" />;
 }
 
 export function SkeletonRows({ rows = 5, cols = 5 }) {

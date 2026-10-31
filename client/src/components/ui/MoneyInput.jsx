@@ -8,7 +8,7 @@ import { fieldBorder } from './FormField';
 export const MoneyInput = forwardRef(function MoneyInput({ invalid, className, value, onChange, ...props }, ref) {
   return (
     <div className="relative">
-      <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-500">₹</span>
+      <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-500 dark:text-gray-400">₹</span>
       <input
         ref={ref}
         type="text"

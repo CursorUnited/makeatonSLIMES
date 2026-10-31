@@ -2,13 +2,13 @@ import clsx from 'clsx';
 import { Pencil, FileText, Check, Play, Pause, Lock, CheckCircle2, XCircle, AlertTriangle, Clock } from 'lucide-react';
 
 const TONES = {
-  gray: 'bg-gray-100 text-gray-700',
-  grayDark: 'bg-gray-700 text-white',
-  warning: 'bg-warning-50 text-warning-700',
-  info: 'bg-info-50 text-info-700',
-  success: 'bg-success-50 text-success-700',
-  dangerSolid: 'bg-danger-700 text-white',
-  dangerOutline: 'bg-white text-danger-700 border border-danger-700',
+  gray: 'bg-gray-100 text-gray-700 dark:bg-darkborder dark:text-gray-300',
+  grayDark: 'bg-gray-700 text-white dark:bg-gray-600',
+  warning: 'bg-warning-50 text-warning-700 dark:bg-warning-700/15 dark:text-warning-300',
+  info: 'bg-info-50 text-info-700 dark:bg-info-700/15 dark:text-info-300',
+  success: 'bg-success-50 text-success-700 dark:bg-success-700/15 dark:text-success-300',
+  dangerSolid: 'bg-danger-700 text-white dark:bg-danger-700',
+  dangerOutline: 'bg-white text-danger-700 border border-danger-700 dark:bg-darksurface dark:text-danger-300 dark:border-danger-300/60',
 };
 
 const SUBSCRIPTION = {

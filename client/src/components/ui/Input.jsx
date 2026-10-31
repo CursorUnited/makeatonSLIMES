@@ -15,7 +15,7 @@ export const PasswordInput = forwardRef(function PasswordInput({ invalid, classN
       <button
         type="button"
         onClick={() => setVisible((v) => !v)}
-        className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-gray-500 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700 rounded"
+        className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-gray-500 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700 rounded dark:text-gray-400 dark:hover:text-gray-200"
         aria-label={visible ? 'Hide password' : 'Show password'}
       >
         {visible ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}

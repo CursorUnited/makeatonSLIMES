@@ -7,10 +7,10 @@ const ToastContext = createContext(null);
 let uid = 0;
 
 const TONES = {
-  success: { bg: 'bg-success-50 text-success-700', icon: CheckCircle2 },
-  danger: { bg: 'bg-danger-50 text-danger-700', icon: AlertTriangle },
-  warning: { bg: 'bg-warning-50 text-warning-700', icon: AlertTriangle },
-  info: { bg: 'bg-info-50 text-info-700', icon: Info },
+  success: { bg: 'bg-success-50 text-success-700 dark:bg-success-700/15 dark:text-success-300', icon: CheckCircle2 },
+  danger: { bg: 'bg-danger-50 text-danger-700 dark:bg-danger-700/15 dark:text-danger-300', icon: AlertTriangle },
+  warning: { bg: 'bg-warning-50 text-warning-700 dark:bg-warning-700/15 dark:text-warning-300', icon: AlertTriangle },
+  info: { bg: 'bg-info-50 text-info-700 dark:bg-info-700/15 dark:text-info-300', icon: Info },
 };
 
 export function ToastProvider({ children }) {
@@ -35,7 +35,7 @@ export function ToastProvider({ children }) {
           {toasts.map(({ id, message, tone }) => {
             const { bg, icon: Icon } = TONES[tone] ?? TONES.info;
             return (
-              <div key={id} className={clsx('flex items-center gap-2 rounded-md px-4 py-3 text-sm shadow-lg', bg)}>
+              <div key={id} className={clsx('flex items-center gap-2 rounded-xl px-4 py-3 text-sm shadow-lg', bg)}>
                 <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
                 <span>{message}</span>
                 <button onClick={() => dismiss(id)} aria-label="Dismiss" className="ml-2 opacity-70 hover:opacity-100">
