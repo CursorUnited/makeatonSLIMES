@@ -47,7 +47,7 @@ function RadioOption({ name, value, checked, onChange, label, disabled }) {
         checked={checked}
         disabled={disabled}
         onChange={onChange}
-        className="h-4 w-4 border-gray-300 text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700"
+        className="h-4 w-4 border-gray-300 text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-700 dark:border-darkborder"
       />
       {label}
     </label>
@@ -56,9 +56,9 @@ function RadioOption({ name, value, checked, onChange, label, disabled }) {
 
 function MultiPicker({ items, selectedIds, onToggle, labelFn, disabled }) {
   return (
-    <div className="max-h-48 overflow-y-auto rounded-md border border-gray-300 p-2">
+    <div className="max-h-48 overflow-y-auto rounded-md border border-gray-300 p-2 dark:border-darkborder">
       {items.length === 0 ? (
-        <p className="p-2 text-sm text-gray-500">None found.</p>
+        <p className="p-2 text-sm text-gray-500 dark:text-gray-500">None found.</p>
       ) : (
         items.map((item) => (
           <Checkbox
@@ -174,7 +174,7 @@ export function DiscountFormPage() {
       minPurchase: body.minPurchase || '0',
       minQuantity: body.minQuantity ? Number(body.minQuantity) : undefined,
       startDate: body.startDate || undefined,
-      endDate: body.endDate || undefined,
+      endDate: body.endDate || null,
       usageLimit: body.usageLimit ? Number(body.usageLimit) : null,
       isActive: body.isActive,
     };
@@ -251,7 +251,7 @@ export function DiscountFormPage() {
       />
 
       {!isAdmin && (
-        <div className="mb-4 rounded-md border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
+        <div className="mb-4 rounded-md border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600 dark:border-darkborder dark:bg-darkbg dark:text-gray-400">
           Only admins can create or edit discounts. You're viewing this in read-only mode.
         </div>
       )}
@@ -265,7 +265,7 @@ export function DiscountFormPage() {
             </FormField>
 
             <div>
-              <p className="mb-1.5 text-sm font-medium text-gray-600">Type</p>
+              <p className="mb-1.5 text-sm font-medium text-gray-600 dark:text-gray-400">Type</p>
               <div className="flex gap-6">
                 <Controller
                   control={control}
@@ -312,7 +312,7 @@ export function DiscountFormPage() {
                         />
                       )}
                     />
-                    <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500">%</span>
+                    <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-500">%</span>
                   </div>
                 ) : (
                   <Controller
@@ -325,7 +325,7 @@ export function DiscountFormPage() {
             </FormField>
 
             <div>
-              <p className="mb-1.5 text-sm font-medium text-gray-600">Applies to</p>
+              <p className="mb-1.5 text-sm font-medium text-gray-600 dark:text-gray-400">Applies to</p>
               <div className="flex gap-6">
                 <Controller
                   control={control}
@@ -385,7 +385,7 @@ export function DiscountFormPage() {
               </div>
             )}
 
-            <p className="text-xs italic text-gray-500">
+            <p className="text-xs italic text-gray-500 dark:text-gray-500">
               Applies on its own to the next invoice that qualifies — it isn't combined with other discounts automatically.
             </p>
           </CardBody>
@@ -427,10 +427,10 @@ export function DiscountFormPage() {
         {!isNew && discount?.usageLimit != null && (
           <Card>
             <CardBody>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 Used {discount.usedCount} of {discount.usageLimit}
               </p>
-              <div className="mt-1.5 h-2 w-full rounded-full bg-gray-100">
+              <div className="mt-1.5 h-2 w-full rounded-full bg-gray-100 dark:bg-darkborder">
                 <div
                   className="h-2 rounded-full bg-primary-700"
                   style={{ width: `${Math.min(100, (discount.usedCount / discount.usageLimit) * 100)}%` }}
@@ -443,8 +443,8 @@ export function DiscountFormPage() {
         <Card>
           <CardBody className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-900">Active</p>
-              <p className="text-xs text-gray-500">Inactive discounts never apply, even if they're otherwise valid.</p>
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Active</p>
+              <p className="text-xs text-gray-500 dark:text-gray-500">Inactive discounts never apply, even if they're otherwise valid.</p>
             </div>
             <Controller
               control={control}

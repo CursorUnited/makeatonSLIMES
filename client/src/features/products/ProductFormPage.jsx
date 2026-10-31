@@ -17,6 +17,7 @@ import {
   useToast,
   Skeleton,
   ErrorBanner,
+  Tag,
 } from '../../components/ui';
 import { formatINR } from '../../lib/format';
 import { useApiForm } from '../../lib/useApiForm';
@@ -287,27 +288,31 @@ function VariantsCard({ product, canWrite, onChanged }) {
         actions={canWrite && editingId === null && <Button variant="secondary" onClick={startAdd}>+ Add variant</Button>}
       />
       <CardBody>
-        <div className="overflow-x-auto rounded-md border border-gray-200">
+        <div className="overflow-x-auto rounded-md border border-gray-200 dark:border-darkborder">
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="border-b border-gray-200 bg-gray-50">
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-600">Attribute</th>
-                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-600">Value</th>
-                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wide text-gray-600">Extra price</th>
-                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wide text-gray-600">Final price</th>
+              <tr className="border-b border-gray-200 bg-gray-50 dark:border-darkborder dark:bg-darkbg">
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-600 dark:text-gray-400">Attribute</th>
+                <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-600 dark:text-gray-400">Value</th>
+                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wide text-gray-600 dark:text-gray-400">Extra price</th>
+                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wide text-gray-600 dark:text-gray-400">Final price</th>
                 {canWrite && <th className="px-4 py-3" />}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-100 dark:divide-darkborder">
               {variants.map((v) =>
                 editingId === v.id ? (
                   <EditRow key={v.id} draft={draft} setDraft={setDraft} errors={rowErrors} onKeyDown={onRowKeyDown} />
                 ) : (
                   <tr key={v.id} className="h-11">
-                    <td className="px-4 py-2 text-gray-900">{v.attribute}</td>
-                    <td className="px-4 py-2 text-gray-900">{v.value}</td>
-                    <td className="px-4 py-2 text-right tabular-nums text-gray-900">{formatINR(v.extraPrice)}</td>
-                    <td className="px-4 py-2 text-right tabular-nums text-gray-900">{formatINR(v.price)}</td>
+                    <td className="px-4 py-2 text-gray-900 dark:text-gray-100">
+                      <Tag label={v.attribute} />
+                    </td>
+                    <td className="px-4 py-2 text-gray-900 dark:text-gray-100">
+                      <Tag label={v.value} />
+                    </td>
+                    <td className="px-4 py-2 text-right tabular-nums text-gray-900 dark:text-gray-100">{formatINR(v.extraPrice)}</td>
+                    <td className="px-4 py-2 text-right tabular-nums text-gray-900 dark:text-gray-100">{formatINR(v.price)}</td>
                     {canWrite && (
                       <td className="px-4 py-2 text-right">
                         <div className="flex justify-end gap-3">
@@ -361,7 +366,7 @@ function VariantsCard({ product, canWrite, onChanged }) {
 
 function EditRow({ draft, setDraft, errors, onKeyDown }) {
   return (
-    <tr className="bg-primary-50/40" onKeyDown={onKeyDown}>
+    <tr className="bg-primary-50/40 dark:bg-primary-800/20" onKeyDown={onKeyDown}>
       <td className="px-4 py-2">
         <Input
           autoFocus

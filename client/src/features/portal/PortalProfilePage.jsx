@@ -56,8 +56,8 @@ export function PortalProfilePage() {
         <CardBody>
           <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex max-w-lg flex-col gap-4">
             <div className="flex flex-col gap-1.5">
-              <span className="text-sm font-medium text-gray-600">Email</span>
-              <p className="text-sm text-gray-700">{profile.email}</p>
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Email</span>
+              <p className="text-sm text-gray-700 dark:text-gray-300">{profile.email}</p>
             </div>
             <FormField label="Name" error={errors.name?.message} required>
               {(p) => <Input {...p} {...register('name')} autoComplete="name" />}
@@ -75,7 +75,7 @@ export function PortalProfilePage() {
               <Button type="submit" variant="primary" loading={isSubmitting}>
                 Save changes
               </Button>
-              <Link to="/forgot-password" className="text-sm text-primary-700 hover:underline">
+              <Link to="/forgot-password" className="text-sm text-primary-700 hover:underline dark:text-primary-300">
                 Change password
               </Link>
             </div>

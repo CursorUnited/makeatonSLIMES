@@ -66,9 +66,9 @@ export function SignupPage() {
         <Button type="submit" variant="primary" loading={isSubmitting} className="mt-2 w-full">
           Create account
         </Button>
-        <p className="text-center text-sm text-gray-600">
+        <p className="text-center text-sm text-gray-600 dark:text-gray-400">
           Already have an account?{' '}
-          <Link to="/login" className="text-primary-700 hover:underline">
+          <Link to="/login" className="text-primary-700 hover:underline dark:text-primary-300">
             Log in
           </Link>
         </p>

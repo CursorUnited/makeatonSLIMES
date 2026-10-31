@@ -111,25 +111,25 @@ export function PortalSubscriptionDetailPage() {
           <CardHeader title="What you pay" actions={<StatusBadge kind="subscription" status={sub.status} />} />
           <CardBody className="flex flex-col gap-3">
             <div>
-              <p className="text-2xl font-semibold text-gray-900">{formatINR(sub.totals.total)}</p>
-              <p className="text-sm text-gray-600">every {period} (incl. GST)</p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-gray-100">{formatINR(sub.totals.total)}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">every {period} (incl. GST)</p>
             </div>
-            {linesSummary && <p className="text-sm text-gray-600">{linesSummary}</p>}
+            {linesSummary && <p className="text-sm text-gray-600 dark:text-gray-400">{linesSummary}</p>}
             <div className="mt-2 grid grid-cols-2 gap-4 text-sm sm:grid-cols-3">
               <div>
-                <p className="text-gray-500">Started</p>
-                <p className="text-gray-900">{formatDate(sub.startDate)}</p>
+                <p className="text-gray-500 dark:text-gray-500">Started</p>
+                <p className="text-gray-900 dark:text-gray-100">{formatDate(sub.startDate)}</p>
               </div>
               {sub.expiryDate && (
                 <div>
-                  <p className="text-gray-500">Ends</p>
-                  <p className="text-gray-900">{formatDate(sub.expiryDate)}</p>
+                  <p className="text-gray-500 dark:text-gray-500">Ends</p>
+                  <p className="text-gray-900 dark:text-gray-100">{formatDate(sub.expiryDate)}</p>
                 </div>
               )}
               {sub.status !== 'CLOSED' && (
                 <div>
-                  <p className="text-gray-500">Next bill</p>
-                  <p className="text-gray-900">{sub.status === 'PAUSED' ? 'Paused' : formatDate(sub.nextInvoiceDate)}</p>
+                  <p className="text-gray-500 dark:text-gray-500">Next bill</p>
+                  <p className="text-gray-900 dark:text-gray-100">{sub.status === 'PAUSED' ? 'Paused' : formatDate(sub.nextInvoiceDate)}</p>
                 </div>
               )}
             </div>
@@ -156,20 +156,20 @@ export function PortalSubscriptionDetailPage() {
           <CardHeader title="Recent invoices" />
           <CardBody>
             {!invoices?.length ? (
-              <p className="text-sm text-gray-600">No invoices yet.</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">No invoices yet.</p>
             ) : (
-              <ul className="flex flex-col divide-y divide-gray-100">
+              <ul className="flex flex-col divide-y divide-gray-100 dark:divide-darkborder">
                 {invoices.map((inv) => (
                   <li key={inv.id} className="flex flex-wrap items-center justify-between gap-2 py-3 text-sm">
                     <div>
-                      <p className="font-medium text-gray-900">{inv.number}</p>
-                      <p className="text-gray-500">Due {formatDate(inv.dueDate)}</p>
+                      <p className="font-medium text-gray-900 dark:text-gray-100">{inv.number}</p>
+                      <p className="text-gray-500 dark:text-gray-500">Due {formatDate(inv.dueDate)}</p>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-gray-900">{formatINR(inv.total)}</span>
+                      <span className="text-gray-900 dark:text-gray-100">{formatINR(inv.total)}</span>
                       <StatusBadge kind="invoice" status={inv.status} />
                       {inv.isOverdue && <OverdueBadge days={daysOverdue(inv.dueDate)} />}
-                      <Link to={`/portal/invoices/${inv.id}/print`} className="text-primary-700 hover:underline">
+                      <Link to={`/portal/invoices/${inv.id}/print`} className="text-primary-700 hover:underline dark:text-primary-300">
                         Download
                       </Link>
                     </div>

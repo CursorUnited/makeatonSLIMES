@@ -29,7 +29,7 @@ export function InvoicePrintPage() {
   return (
     <div className="min-h-screen bg-gray-100 print:bg-white">
       <div className="mx-auto max-w-[210mm] print:p-0">
-        <div className="flex justify-end p-4 print:hidden">
+        <div className="flex justify-end p-4 print:hidden dark:bg-darkbg">
           <Button variant="primary" onClick={() => window.print()}>
             <Printer className="h-4 w-4" aria-hidden="true" /> Print / Save as PDF
           </Button>

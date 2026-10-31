@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import clsx from 'clsx';
-import { PageHeader, Card, CardBody, DataTable, useListQuery, Button, StatusBadge, OverdueBadge, Checkbox, useToast } from '../../components/ui';
+import { PageHeader, Card, CardBody, DataTable, useListQuery, Button, StatusBadge, OverdueBadge, Checkbox, PillFilter, useToast } from '../../components/ui';
 import { formatDate, formatINR, daysOverdue } from '../../lib/format';
 import { listInvoices, confirmInvoicesBulk } from '../../api/invoices';
 
@@ -42,7 +41,8 @@ export function InvoicesListPage() {
 
   const rows = data?.data ?? [];
 
-  function selectTab(tab) {
+  function selectTab(tabKey) {
+    const tab = TABS.find((t) => t.key === tabKey) ?? TABS[0];
     const next = new URLSearchParams();
     const q = params.get('q');
     if (q) next.set('q', q);
@@ -104,7 +104,7 @@ export function InvoicesListPage() {
       key: 'number',
       header: 'Number',
       render: (r) => (
-        <Link to={`/invoices/${r.id}`} className="text-primary-700 hover:underline" onClick={(e) => e.stopPropagation()}>
+        <Link to={`/invoices/${r.id}`} className="text-primary-700 hover:underline dark:text-primary-300" onClick={(e) => e.stopPropagation()}>
           {r.number}
         </Link>
       ),
@@ -130,19 +130,8 @@ export function InvoicesListPage() {
   return (
     <div>
       <PageHeader title="Invoices" breadcrumb="Billing" />
-      <div className="mb-4 flex flex-wrap gap-2">
-        {TABS.map((tab) => (
-          <button
-            key={tab.key}
-            onClick={() => selectTab(tab)}
-            className={clsx(
-              'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
-              activeTab === tab.key ? 'bg-primary-700 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200',
-            )}
-          >
-            {tab.label}
-          </button>
-        ))}
+      <div className="mb-4">
+        <PillFilter options={TABS.map((tab) => ({ value: tab.key, label: tab.label }))} value={activeTab} onChange={selectTab} />
       </div>
       <Card>
         <CardBody>

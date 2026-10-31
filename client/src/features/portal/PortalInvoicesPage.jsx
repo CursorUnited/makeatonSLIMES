@@ -23,7 +23,7 @@ const COLUMNS = [
     key: 'download',
     header: '',
     render: (r) => (
-      <Link to={`/portal/invoices/${r.id}/print`} className="text-primary-700 hover:underline">
+      <Link to={`/portal/invoices/${r.id}/print`} className="text-primary-700 hover:underline dark:text-primary-300">
         Download
       </Link>
     ),

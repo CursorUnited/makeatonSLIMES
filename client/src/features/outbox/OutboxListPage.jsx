@@ -52,10 +52,10 @@ function OutboxMessageModal({ id, onClose }) {
     <Modal open={id != null} onClose={onClose} title={data?.subject ?? 'Message'} size="lg">
       {data && (
         <div>
-          <p className="mb-3 text-sm text-gray-600">
+          <p className="mb-3 text-sm text-gray-600 dark:text-gray-400">
             To {data.toEmail} &middot; {formatDateTime(data.createdAt)}
           </p>
-          <div className="rounded-md border border-gray-200 p-4" dangerouslySetInnerHTML={{ __html: data.bodyHtml }} />
+          <div className="rounded-md border border-gray-200 p-4 dark:border-darkborder dark:bg-darkbg dark:text-gray-100" dangerouslySetInnerHTML={{ __html: data.bodyHtml }} />
         </div>
       )}
     </Modal>

@@ -45,18 +45,18 @@ export function PortalSubscriptionsPage() {
               <Card key={s.id}>
                 <CardBody className="flex flex-col gap-3">
                   <div className="flex items-start justify-between gap-2">
-                    <h3 className="text-base font-semibold text-gray-900">{s.plan.name}</h3>
+                    <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">{s.plan.name}</h3>
                     <StatusBadge kind="subscription" status={s.status} />
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     {period.charAt(0).toUpperCase() + period.slice(1)} plan · {formatINR(s.recurringTotal)} per {period}
                   </p>
                   {s.status === 'PAUSED' ? (
-                    <p className="text-sm text-gray-600">Paused</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Paused</p>
                   ) : (
-                    s.nextInvoiceDate && <p className="text-sm text-gray-600">Next bill on {formatDate(s.nextInvoiceDate)}</p>
+                    s.nextInvoiceDate && <p className="text-sm text-gray-600 dark:text-gray-400">Next bill on {formatDate(s.nextInvoiceDate)}</p>
                   )}
-                  {s.expiryDate && <p className="text-sm text-gray-600">Ends on {formatDate(s.expiryDate)}</p>}
+                  {s.expiryDate && <p className="text-sm text-gray-600 dark:text-gray-400">Ends on {formatDate(s.expiryDate)}</p>}
                   <Button variant="secondary" className="mt-2 self-start" onClick={() => navigate(`/portal/subscriptions/${s.id}`)}>
                     View details
                   </Button>

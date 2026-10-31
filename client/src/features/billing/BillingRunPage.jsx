@@ -48,7 +48,7 @@ export function BillingRunPage() {
       <PageHeader title="Billing run" breadcrumb="Billing" />
       <Card>
         <CardBody>
-          <p className="mb-4 text-sm text-gray-600">
+          <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
             Run the billing job to create invoices for every subscription due on or before the chosen date.
           </p>
           <div className="flex flex-wrap items-end gap-3">
@@ -69,7 +69,7 @@ export function BillingRunPage() {
           </div>
 
           {result && (
-            <div className="mt-6 flex flex-col gap-1 rounded-md border border-success-700/30 bg-success-50 px-4 py-3 text-sm text-success-700">
+            <div className="mt-6 flex flex-col gap-1 rounded-md border border-success-700/30 bg-success-50 px-4 py-3 text-sm text-success-700 dark:border-success-300/20 dark:bg-success-700/15 dark:text-success-300">
               <p>
                 Created {result.createdCount} invoice{result.createdCount === 1 ? '' : 's'}, {result.skippedCount} skipped,{' '}
                 {result.failedCount} failed.
@@ -89,7 +89,7 @@ export function BillingRunPage() {
         <CardHeader title="Recent runs" />
         <CardBody>
           {runsQuery.isLoading ? (
-            <p className="text-sm text-gray-500">Loading…</p>
+            <p className="text-sm text-gray-500 dark:text-gray-500">Loading…</p>
           ) : runsQuery.error ? (
             <ErrorBanner message="Couldn't load recent runs." onRetry={runsQuery.refetch} />
           ) : !runsQuery.data?.length ? (
@@ -98,7 +98,7 @@ export function BillingRunPage() {
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-sm">
                 <thead>
-                  <tr className="border-b border-gray-200 bg-gray-50 text-xs font-medium uppercase tracking-wide text-gray-600">
+                  <tr className="border-b border-gray-200 bg-gray-50 text-xs font-medium uppercase tracking-wide text-gray-600 dark:border-darkborder dark:bg-darkbg dark:text-gray-400">
                     <th className="px-4 py-3 text-left">Started</th>
                     <th className="px-4 py-3 text-left">As of</th>
                     <th className="px-4 py-3 text-right">Created</th>
@@ -107,15 +107,15 @@ export function BillingRunPage() {
                     <th className="px-4 py-3 text-left">By</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-gray-100 dark:divide-darkborder">
                   {runsQuery.data.map((run) => (
                     <tr key={run.id} className="h-11">
-                      <td className="px-4 py-2 text-gray-900">{formatDateTime(run.startedAt)}</td>
-                      <td className="px-4 py-2 text-gray-900">{formatDate(run.asOf)}</td>
-                      <td className="px-4 py-2 text-right tabular-nums text-gray-900">{run.createdCount}</td>
-                      <td className="px-4 py-2 text-right tabular-nums text-gray-900">{run.skippedCount}</td>
-                      <td className="px-4 py-2 text-right tabular-nums text-gray-900">{run.failedCount}</td>
-                      <td className="px-4 py-2 text-gray-900">{run.triggeredBy?.name ?? 'Daily job'}</td>
+                      <td className="px-4 py-2 text-gray-900 dark:text-gray-100">{formatDateTime(run.startedAt)}</td>
+                      <td className="px-4 py-2 text-gray-900 dark:text-gray-100">{formatDate(run.asOf)}</td>
+                      <td className="px-4 py-2 text-right tabular-nums text-gray-900 dark:text-gray-100">{run.createdCount}</td>
+                      <td className="px-4 py-2 text-right tabular-nums text-gray-900 dark:text-gray-100">{run.skippedCount}</td>
+                      <td className="px-4 py-2 text-right tabular-nums text-gray-900 dark:text-gray-100">{run.failedCount}</td>
+                      <td className="px-4 py-2 text-gray-900 dark:text-gray-100">{run.triggeredBy?.name ?? 'Daily job'}</td>
                     </tr>
                   ))}
                 </tbody>

@@ -30,7 +30,7 @@ export function PortalInvoicePrintPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-8 dark:bg-darkbg">
       <div className="mx-auto flex max-w-[210mm] justify-end px-4 print:hidden">
         <Button variant="primary" onClick={() => window.print()}>
           <Printer className="h-4 w-4" aria-hidden="true" />

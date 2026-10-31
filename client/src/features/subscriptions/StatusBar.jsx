@@ -15,7 +15,7 @@ export function StatusBar({ status }) {
       <ol className="flex items-center" aria-label="Subscription status">
         {STEPS.map((step, i) => (
           <li key={step} className="flex items-center">
-            {i > 0 && <ChevronRight className="h-4 w-4 text-gray-300" aria-hidden="true" />}
+            {i > 0 && <ChevronRight className="h-4 w-4 text-gray-300 dark:text-gray-600" aria-hidden="true" />}
             <span
               aria-current={step === effectiveStep ? 'step' : undefined}
               className={clsx(
@@ -23,8 +23,8 @@ export function StatusBar({ status }) {
                 step === effectiveStep
                   ? 'bg-primary-700 text-white'
                   : i < currentIdx
-                    ? 'bg-primary-50 text-primary-700'
-                    : 'bg-white text-gray-400 border border-gray-200',
+                    ? 'bg-primary-50 text-primary-700 dark:bg-primary-700/15 dark:text-primary-300'
+                    : 'bg-white text-gray-400 border border-gray-200 dark:bg-darksurface dark:text-gray-500 dark:border-darkborder',
               )}
             >
               {LABELS[step]}

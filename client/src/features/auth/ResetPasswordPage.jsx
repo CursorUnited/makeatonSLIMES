@@ -37,7 +37,7 @@ export function ResetPasswordPage() {
   if (invalid) {
     return (
       <AuthLayout title="Choose a new password">
-        <p className="text-center text-sm text-gray-700">This link has expired or was already used.</p>
+        <p className="text-center text-sm text-gray-700 dark:text-gray-300">This link has expired or was already used.</p>
         <Link to="/forgot-password" className="mt-6 block">
           <Button variant="primary" className="w-full">
             Send a new link

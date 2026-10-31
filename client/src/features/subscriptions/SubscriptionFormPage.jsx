@@ -159,7 +159,7 @@ export function SubscriptionFormPage() {
     if (form.paymentTermId) body.paymentTermId = Number(form.paymentTermId);
     if (form.startDate) body.startDate = form.startDate;
     body.expiryDate = form.expiryDate || null;
-    if (form.notes) body.notes = form.notes;
+    body.notes = form.notes;
     const includeLines = !isNew || form.lines.length > 0 || !form.templateId;
     if (includeLines) {
       body.lines = form.lines
@@ -346,7 +346,7 @@ export function SubscriptionFormPage() {
         }
       />
 
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white p-4">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-darkborder dark:bg-darksurface">
         <div className="flex flex-wrap items-center gap-2">
           {editable && (
             <Button variant="secondary" loading={saving} onClick={handleSave}>
@@ -364,7 +364,7 @@ export function SubscriptionFormPage() {
             );
           })}
           {sub?.status === 'CONFIRMED' && !sub.allowedActions?.includes('activate') && (
-            <span className="text-sm text-gray-500">Starts on {formatDate(sub.startDate)}</span>
+            <span className="text-sm text-gray-500 dark:text-gray-500">Starts on {formatDate(sub.startDate)}</span>
           )}
         </div>
         <StatusBar status={sub?.status ?? 'DRAFT'} />
@@ -429,14 +429,14 @@ export function SubscriptionFormPage() {
             {(p) => <DateInput {...p} value={form.expiryDate ?? ''} onChange={(e) => set({ expiryDate: e.target.value })} disabled={!editable} />}
           </FormField>
           <div>
-            <p className="text-sm font-medium text-gray-600">Quote valid until</p>
-            <p className="mt-1.5 h-10 text-sm leading-10 text-gray-700">
+            <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Quote valid until</p>
+            <p className="mt-1.5 h-10 text-sm leading-10 text-gray-700 dark:text-gray-300">
               {sub?.quotationValidUntil ? formatDate(sub.quotationValidUntil) : '—  (set when a quotation is sent)'}
             </p>
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-600">Next invoice</p>
-            <p className="mt-1.5 h-10 text-sm leading-10 text-gray-700">
+            <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Next invoice</p>
+            <p className="mt-1.5 h-10 text-sm leading-10 text-gray-700 dark:text-gray-300">
               {sub?.nextInvoiceDate ? formatDate(sub.nextInvoiceDate) : '—  (set when the subscription becomes Active)'}
             </p>
           </div>
@@ -463,10 +463,10 @@ export function SubscriptionFormPage() {
             onChange={(lines) => set({ lines })}
             onCustomize={handleCustomize}
           />
-          {!editable && !isNew && <p className="mt-3 text-sm text-gray-500">Confirmed subscriptions cannot be edited.</p>}
+          {!editable && !isNew && <p className="mt-3 text-sm text-gray-500 dark:text-gray-500">Confirmed subscriptions cannot be edited.</p>}
 
           <div className="mt-4 flex justify-end">
-            <div className="w-full max-w-sm rounded-md border border-gray-200 p-4 text-sm">
+            <div className="w-full max-w-sm rounded-md border border-gray-200 p-4 text-sm dark:border-darkborder">
               {totalsLoading ? (
                 <div className="flex flex-col gap-2">
                   <Skeleton className="h-4 w-full" />
@@ -480,7 +480,7 @@ export function SubscriptionFormPage() {
                     <span className="tabular-nums">{formatINR(totals.untaxed)}</span>
                   </div>
                   {appliedDiscounts?.map((d) => (
-                    <div key={d.id} className="flex justify-between text-gray-600">
+                    <div key={d.id} className="flex justify-between text-gray-600 dark:text-gray-400">
                       <span>Discount ({d.name})</span>
                       <span className="tabular-nums">− {formatINR(d.amount)}</span>
                     </div>
@@ -489,14 +489,14 @@ export function SubscriptionFormPage() {
                     <span>Tax</span>
                     <span className="tabular-nums">{formatINR(totals.tax)}</span>
                   </div>
-                  <div className="mt-1 flex justify-between border-t border-gray-200 pt-1 font-semibold">
+                  <div className="mt-1 flex justify-between border-t border-gray-200 pt-1 font-semibold dark:border-darkborder">
                     <span>Total</span>
                     <span className="tabular-nums">{formatINR(totals.total)}</span>
                   </div>
-                  <p className="mt-1 text-xs text-gray-500">(preview, per billing period)</p>
+                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-500">(preview, per billing period)</p>
                 </>
               ) : (
-                <p className="text-gray-500">Choose a customer and start date to preview totals.</p>
+                <p className="text-gray-500 dark:text-gray-500">Choose a customer and start date to preview totals.</p>
               )}
             </div>
           </div>

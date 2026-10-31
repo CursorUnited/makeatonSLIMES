@@ -22,10 +22,10 @@ export function ForgotPasswordPage() {
   if (sent) {
     return (
       <AuthLayout title="Reset your password">
-        <p className="text-center text-sm text-gray-700">
+        <p className="text-center text-sm text-gray-700 dark:text-gray-300">
           If an account exists for that email, a reset link is on its way. It works for 30 minutes.
         </p>
-        <Link to="/login" className="mt-6 block text-center text-sm text-primary-700 hover:underline">
+        <Link to="/login" className="mt-6 block text-center text-sm text-primary-700 hover:underline dark:text-primary-300">
           Back to log in
         </Link>
       </AuthLayout>
@@ -35,14 +35,14 @@ export function ForgotPasswordPage() {
   return (
     <AuthLayout title="Reset your password">
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-4">
-        <p className="text-sm text-gray-600">Enter the email you signed up with.</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400">Enter the email you signed up with.</p>
         <FormField label="Email" error={errors.email?.message} required>
           {(p) => <Input {...p} type="email" {...register('email')} autoComplete="email" autoFocus />}
         </FormField>
         <Button type="submit" variant="primary" loading={isSubmitting} className="w-full">
           Send reset link
         </Button>
-        <Link to="/login" className="text-center text-sm text-primary-700 hover:underline">
+        <Link to="/login" className="text-center text-sm text-primary-700 hover:underline dark:text-primary-300">
           Back to log in
         </Link>
       </form>

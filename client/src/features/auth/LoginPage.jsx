@@ -41,7 +41,7 @@ export function LoginPage() {
             {(p) => <PasswordInput {...p} {...register('password')} autoComplete="current-password" />}
           </FormField>
           <div className="mt-1.5 text-right">
-            <Link to="/forgot-password" className="text-sm text-primary-700 hover:underline">
+            <Link to="/forgot-password" className="text-sm text-primary-700 hover:underline dark:text-primary-300">
               Forgot password?
             </Link>
           </div>
@@ -49,9 +49,9 @@ export function LoginPage() {
         <Button type="submit" variant="primary" loading={isSubmitting} className="w-full">
           Log in
         </Button>
-        <p className="text-center text-sm text-gray-600">
+        <p className="text-center text-sm text-gray-600 dark:text-gray-400">
           New here?{' '}
-          <Link to="/signup" className="text-primary-700 hover:underline">
+          <Link to="/signup" className="text-primary-700 hover:underline dark:text-primary-300">
             Create an account
           </Link>
         </p>

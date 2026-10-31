@@ -202,18 +202,18 @@ export function TemplateFormPage() {
         />
         <CardBody>
           {errors.lines?.message && <p className="mb-3 text-xs text-danger-700">{errors.lines.message}</p>}
-          <div className="overflow-x-auto rounded-md border border-gray-200">
+          <div className="overflow-x-auto rounded-md border border-gray-200 dark:border-darkborder">
             <table className="w-full border-collapse text-sm">
               <thead>
-                <tr className="border-b border-gray-200 bg-gray-50">
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-600">Product</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-600">Variant</th>
-                  <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wide text-gray-600">Quantity</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-600">Description</th>
+                <tr className="border-b border-gray-200 bg-gray-50 dark:border-darkborder dark:bg-darkbg">
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-600 dark:text-gray-400">Product</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-600 dark:text-gray-400">Variant</th>
+                  <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wide text-gray-600 dark:text-gray-400">Quantity</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-600 dark:text-gray-400">Description</th>
                   {canWrite && <th className="px-4 py-3" />}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-gray-100 dark:divide-darkborder">
                 {fields.map((field, index) => {
                   const productId = lines[index]?.productId;
                   const variantOptions = variantsByProduct[productId] ?? [];

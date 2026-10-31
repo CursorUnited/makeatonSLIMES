@@ -117,15 +117,15 @@ export function CustomerFormPage() {
         {!isNew && customer && (
           <Card>
             <CardBody>
-              <h2 className="mb-3 text-lg font-semibold text-gray-900">Summary</h2>
+              <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-gray-100">Summary</h2>
               <dl className="flex flex-col gap-3 text-sm">
                 <div>
                   <dt className="text-gray-500">Outstanding amount</dt>
-                  <dd className="text-base font-medium text-gray-900">{formatINR(customer.outstandingAmount)}</dd>
+                  <dd className="text-base font-medium text-gray-900 dark:text-gray-100">{formatINR(customer.outstandingAmount)}</dd>
                 </div>
                 <div>
                   <dt className="text-gray-500">Subscriptions</dt>
-                  <dd className="text-gray-900">
+                  <dd className="text-gray-900 dark:text-gray-100">
                     {Object.entries(customer.subscriptionCounts ?? {}).length === 0
                       ? 'None yet'
                       : Object.entries(customer.subscriptionCounts).map(([status, count]) => (
@@ -137,7 +137,7 @@ export function CustomerFormPage() {
                 </div>
                 <div>
                   <dt className="text-gray-500">Portal access</dt>
-                  <dd className="text-gray-900">{customer.hasPortalUser ? 'Has a portal account' : 'No portal account'}</dd>
+                  <dd className="text-gray-900 dark:text-gray-100">{customer.hasPortalUser ? 'Has a portal account' : 'No portal account'}</dd>
                 </div>
               </dl>
             </CardBody>

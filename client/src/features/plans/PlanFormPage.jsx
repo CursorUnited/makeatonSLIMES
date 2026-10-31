@@ -196,8 +196,8 @@ export function PlanFormPage() {
               </FormField>
             </div>
 
-            <div className="border-t border-gray-200 pt-4">
-              <h2 className="mb-3 text-lg font-semibold text-gray-900">Options</h2>
+            <div className="border-t border-gray-200 pt-4 dark:border-darkborder">
+              <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-gray-100">Options</h2>
               <div className="flex flex-col gap-3">
                 <Checkbox
                   label="Close automatically"
