@@ -105,35 +105,49 @@ export function DashboardPage() {
 
   const s = summaryQ.data;
   const statusData = s ? Object.entries(s.subscriptionsByStatus).map(([status, count]) => ({ status, count })) : [];
+  const totalSubs = statusData.reduce((sum, r) => sum + r.count, 0);
 
   return (
     <div>
-      <PageHeader
-        title="Dashboard"
-        actions={
-          <div className="flex flex-wrap items-center gap-2">
-            <DateInput aria-label="From" value={from} onChange={(e) => setParam('from', e.target.value)} />
-            <span className="text-sm text-gray-500 dark:text-gray-500">to</span>
-            <DateInput aria-label="To" value={to} onChange={(e) => setParam('to', e.target.value)} />
+      <PageHeader title="Dashboard" />
+
+      <Card className="mb-6 p-4">
+        <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
+          <div className="flex items-end gap-2">
+            <label className="flex flex-col gap-1.5">
+              <span className="text-xs font-medium text-gray-500 dark:text-gray-500">From</span>
+              <DateInput aria-label="From" value={from} onChange={(e) => setParam('from', e.target.value)} className="w-40" />
+            </label>
+            <span className="pb-2.5 text-sm text-gray-400 dark:text-gray-600">&ndash;</span>
+            <label className="flex flex-col gap-1.5">
+              <span className="text-xs font-medium text-gray-500 dark:text-gray-500">To</span>
+              <DateInput aria-label="To" value={to} onChange={(e) => setParam('to', e.target.value)} className="w-40" />
+            </label>
+          </div>
+          <label className="flex flex-col gap-1.5">
+            <span className="text-xs font-medium text-gray-500 dark:text-gray-500">Plan</span>
             <Select
               aria-label="Plan"
               placeholder="All plans"
               value={planId}
               onChange={(e) => setParam('planId', e.target.value)}
               options={(plans ?? []).map((p) => ({ value: p.id, label: p.name }))}
-              className="w-auto min-w-[140px]"
+              className="w-44"
             />
+          </label>
+          <label className="flex flex-col gap-1.5">
+            <span className="text-xs font-medium text-gray-500 dark:text-gray-500">Customer</span>
             <Select
               aria-label="Customer"
               placeholder="All customers"
               value={customerId}
               onChange={(e) => setParam('customerId', e.target.value)}
               options={(customers ?? []).map((c) => ({ value: c.id, label: c.name }))}
-              className="w-auto min-w-[160px]"
+              className="w-48"
             />
-          </div>
-        }
-      />
+          </label>
+        </div>
+      </Card>
 
       {summaryQ.isLoading ? (
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5">
@@ -218,24 +232,30 @@ export function DashboardPage() {
           }
         >
           <p className="sr-only">Count of subscriptions by lifecycle status.</p>
-          <ResponsiveContainer width="100%" height={260}>
-            <PieChart>
-              <Pie data={statusData} dataKey="count" nameKey="status" innerRadius={60} outerRadius={95} paddingAngle={2}>
-                {statusData.map((entry) => (
-                  <Cell key={entry.status} fill={STATUS_COLORS[entry.status]} />
+          {totalSubs === 0 ? (
+            <EmptyState title="No subscriptions in this range yet." />
+          ) : (
+            <>
+              <ResponsiveContainer width="100%" height={260}>
+                <PieChart>
+                  <Pie data={statusData} dataKey="count" nameKey="status" innerRadius={60} outerRadius={95} paddingAngle={2}>
+                    {statusData.map((entry) => (
+                      <Cell key={entry.status} fill={STATUS_COLORS[entry.status]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-gray-600 dark:text-gray-400">
+                {statusData.map((r) => (
+                  <span key={r.status} className="flex items-center gap-1.5">
+                    <span className="h-2 w-2 rounded-full" style={{ backgroundColor: STATUS_COLORS[r.status] }} />
+                    {r.status.charAt(0) + r.status.slice(1).toLowerCase()} {r.count}
+                  </span>
                 ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
-          <div className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-gray-600 dark:text-gray-400">
-            {statusData.map((r) => (
-              <span key={r.status} className="flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full" style={{ backgroundColor: STATUS_COLORS[r.status] }} />
-                {r.status.charAt(0) + r.status.slice(1).toLowerCase()} {r.count}
-              </span>
-            ))}
-          </div>
+              </div>
+            </>
+          )}
         </ChartCard>
       </div>
 
