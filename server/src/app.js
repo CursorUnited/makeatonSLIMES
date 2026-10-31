@@ -3,7 +3,11 @@ import cookieParser from 'cookie-parser';
 import { requestId } from './middleware/requestId.js';
 import { timing } from './middleware/timing.js';
 import { errorHandler, notFoundRoute } from './middleware/errorHandler.js';
+import { authenticate } from './middleware/auth.js';
 import { healthRouter } from './modules/health/health.routes.js';
+import { authRouter } from './modules/auth/auth.routes.js';
+import { usersRouter } from './modules/users/users.routes.js';
+import { outboxRouter } from './modules/outbox/outbox.routes.js';
 
 /** Builds the Express app (no listen), so tests can use it with supertest. */
 export function createApp() {
@@ -16,9 +20,13 @@ export function createApp() {
   app.use(timing);
   app.use(express.json({ limit: '1mb' }));
   app.use(cookieParser());
+  app.use('/api', authenticate);
 
   const api = express.Router();
   api.use('/health', healthRouter);
+  api.use('/auth', authRouter);
+  api.use('/users', usersRouter);
+  api.use('/outbox', outboxRouter);
   app.use('/api/v1', api);
 
   app.use('/api', notFoundRoute);
