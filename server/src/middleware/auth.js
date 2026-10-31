@@ -14,7 +14,7 @@ export async function authenticate(req, res, next) {
   if (!token) return next();
   let claims;
   try {
-    claims = jwt.verify(token, config.jwtSecret);
+    claims = jwt.verify(token, config.jwtSecret, { algorithms: ['HS256'] });
   } catch {
     return next();
   }

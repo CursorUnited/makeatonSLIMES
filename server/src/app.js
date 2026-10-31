@@ -26,10 +26,10 @@ export function createApp() {
   app.use(timing);
   app.use(express.json({ limit: '1mb' }));
   app.use(cookieParser());
-  app.use('/api', authenticate);
 
   const api = express.Router();
-  api.use('/health', healthRouter);
+  api.use('/health', healthRouter); // before auth: must answer 503 (not 500) when the DB is down
+  api.use(authenticate);
   api.use('/auth', authRouter);
   api.use('/users', usersRouter);
   api.use('/outbox', outboxRouter);

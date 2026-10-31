@@ -43,6 +43,7 @@ export async function signup({ name, email, password, company, phone }) {
   if (await prisma.user.findUnique({ where: { email }, select: { id: true } })) throw EMAIL_TAKEN();
   const passwordHash = await hashPassword(password);
 
+  // Two sign-ups racing on one email: the loser hits a unique key (user or customer email).
   return prisma.$transaction(async (tx) => {
     let customer = await tx.customer.findUnique({ where: { email }, include: { user: { select: { id: true } } } });
     if (customer?.user) throw EMAIL_TAKEN();
@@ -62,6 +63,9 @@ export async function signup({ name, email, password, company, phone }) {
       ),
     });
     return user;
+  }).catch((err) => {
+    if (err?.code === 'P2002') throw EMAIL_TAKEN();
+    throw err;
   });
 }
 

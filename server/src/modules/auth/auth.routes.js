@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { validate } from '../../middleware/validate.js';
 import { requireAuth, AUTH_COOKIE } from '../../middleware/auth.js';
-import { rateLimit } from '../../middleware/rateLimit.js';
+import { rateLimit, byEmail } from '../../middleware/rateLimit.js';
 import { signupSchema, loginSchema, forgotSchema, resetSchema, weakPasswordAware } from './auth.schema.js';
 import * as auth from './auth.service.js';
 
 export const authRouter = Router();
-const limiter = rateLimit({ max: 10, windowMs: 60_000 });
+const limiter = rateLimit({ max: 10, windowMs: 60_000, key: byEmail });
 
 authRouter.post('/signup', validate({ body: signupSchema }, { onError: weakPasswordAware }), async (req, res) => {
   const user = await auth.signup(req.valid.body);
